@@ -5,19 +5,16 @@ import 'package:source_gen/source_gen.dart';
 
 import 'package:objd/annotations.dart';
 
-const nullable = false;
-
 class FileGenerator extends GeneratorForAnnotation<Func> {
   @override
   FutureOr<String> generateForAnnotatedElement(
-    Element element,
+    Element e,
     ConstantReader annotation,
     BuildStep buildStep,
   ) {
-    if (element is! TopLevelVariableElement) {
+    if (e is! TopLevelVariableElement) {
       throw '@Func can only be applied to final Widget variables or List of Widgets';
     }
-    final e = element as TopLevelVariableElement;
 
     // if (!e.type.isDynamic && !e.type.toString().contains('Widget')) {
     //   throw '@Func values must be of type Widget';

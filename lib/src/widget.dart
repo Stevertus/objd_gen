@@ -5,7 +5,7 @@ import 'package:source_gen/source_gen.dart';
 
 import 'package:objd/annotations.dart';
 
-const nullable = false;
+const nullable = true;
 
 class WidgetGenerator extends GeneratorForAnnotation<WidgetAnnotation> {
   @override

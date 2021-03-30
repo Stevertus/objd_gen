@@ -5,20 +5,16 @@ import 'package:source_gen/source_gen.dart';
 
 import 'package:objd/annotations.dart';
 
-const nullable = false;
-
 class ProjectGenerator extends GeneratorForAnnotation<Prj> {
   @override
   FutureOr<String> generateForAnnotatedElement(
-    Element element,
+    Element e,
     ConstantReader annotation,
     BuildStep buildStep,
   ) {
-    if (element is! TopLevelVariableElement) {
+    if (e is! TopLevelVariableElement) {
       throw '@Prj can only be applied to Widget variables';
     }
-
-    final e = element as TopLevelVariableElement;
 
     // if (!e.type.isDynamic && !e.type.toString().contains('Widget')) {
     //   throw '@Prj values must be of type Widget';

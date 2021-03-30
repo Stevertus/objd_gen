@@ -9,7 +9,7 @@ Include the package along with build_runner in your pubspec.yaml as a dev depend
 ```
 dev_dependencies:
   build_runner:
-  objd_gen: ^0.0.1
+  objd_gen: ^0.0.2
 ```
 
 The generators put the new dart classes and functions in a new file alongside your annotated file. To make it available include it with the part statement:

@@ -5,20 +5,16 @@ import 'package:source_gen/source_gen.dart';
 
 import 'package:objd/annotations.dart';
 
-const nullable = false;
-
 class PackGenerator extends GeneratorForAnnotation<Pck> {
   @override
   FutureOr<String> generateForAnnotatedElement(
-    Element element,
+    Element e,
     ConstantReader annotation,
     BuildStep buildStep,
   ) {
-    if (element is! TopLevelVariableElement) {
+    if (e is! TopLevelVariableElement) {
       throw '@Pck can only be applied to List<File> variables';
     }
-
-    final e = element as TopLevelVariableElement;
 
     if (!e.type.isDynamic && !e.type.toString().contains('List<')) {
       throw '@Pck values must be of type List<File>';
