@@ -15,17 +15,18 @@ class FileGenerator extends GeneratorForAnnotation<Func> {
     BuildStep buildStep,
   ) {
     if (element is! TopLevelVariableElement) {
-      throw '@Func can only be applied to final Widget variables';
+      throw '@Func can only be applied to final Widget variables or List of Widgets';
     }
     final e = element as TopLevelVariableElement;
 
     // if (!e.type.isDynamic && !e.type.toString().contains('Widget')) {
     //   throw '@Func values must be of type Widget';
     // }
+    final useFor = e.type.isDynamic || e.type.toString().contains('List<');
 
     final gen = StringBuffer();
 
-    final pathSegments = e.source.fullName.split('/')..removeLast();
+    final pathSegments = e.source!.fullName.split('/')..removeLast();
 
     final name = annotation.read('name').isNull
         ? e.displayName
@@ -39,8 +40,14 @@ class FileGenerator extends GeneratorForAnnotation<Func> {
     if (e.documentationComment != null) gen.writeln(e.documentationComment);
 
     gen.write(
-      'final File $classname = File(\'$path$name\',child: ${e.displayName},',
+      'final File $classname = File(\'$path$name\',child:',
     );
+
+    if (useFor) {
+      gen.write('For.of(${e.displayName}),');
+    } else {
+      gen.write('${e.displayName},');
+    }
 
     if (annotation.read('pack').isString) {
       gen.write('pack: \'${annotation.read('pack').stringValue}\',');

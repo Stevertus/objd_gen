@@ -30,8 +30,10 @@ class PackGenerator extends GeneratorForAnnotation<Pck> {
         ? e.displayName
         : annotation.read('name').literalValue.toString();
 
-    final classname =
-        name[0].toUpperCase() + name.substring(1).replaceAll('_', '') + 'Pack';
+    final classname = e.displayName[0].toUpperCase() +
+        e.displayName.substring(1).replaceAll('_', '') +
+        'Pack';
+    //name[0].toUpperCase() + name.substring(1).replaceAll('_', '') + 'Pack';
 
     if (e.documentationComment != null) gen.writeln(e.documentationComment);
 

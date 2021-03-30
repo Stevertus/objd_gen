@@ -17,9 +17,11 @@ class WidgetGenerator extends GeneratorForAnnotation<WidgetAnnotation> {
     if (element is! FunctionElement) {
       throw '@Wdg can only be applied to Functions that return a Widget';
     }
-    final e = element as FunctionElement;
+    final e = element;
 
-    if (e.returnType == null || !e.returnType.toString().contains('Widget')) {
+    final useList = e.returnType.toString().contains('List<');
+
+    if (!useList && !e.returnType.toString().contains('Widget')) {
       throw 'The @Wdg Funtion has to return another Widget!';
     }
 
@@ -41,7 +43,7 @@ class WidgetGenerator extends GeneratorForAnnotation<WidgetAnnotation> {
     var positional = <ParameterElement>[];
     var optional = <ParameterElement>[];
     var named = <ParameterElement>[];
-    ParameterElement context;
+    ParameterElement? context;
 
     // Find param categories and generate class members
     for (var param in params) {
@@ -117,13 +119,16 @@ class WidgetGenerator extends GeneratorForAnnotation<WidgetAnnotation> {
 
     // Generate method
     gen.writeln('@override');
-    gen.write('Widget generate(Context context) => $name(');
+    gen.write('Widget generate(Context context) => ');
+    if (useList) gen.write('For.of(');
+    gen.write('$name(');
     for (var param in params) {
       if (named.contains(param)) gen.write('${param.displayName}:');
       // if it is context use given context
       gen.write('${param == context ? 'context' : param.displayName},');
     }
 
+    if (useList) gen.write(')');
     gen.writeln(');');
 
     gen.writeln('}');
