@@ -29,7 +29,7 @@ class FileGenerator extends GeneratorForAnnotation<Func> {
         ? e.displayName
         : annotation.read('name').literalValue.toString();
     final path = annotation.read('path').isNull
-        ? pathSegments.sublist(1).join('/').replaceAll('lib/', '') + '/'
+        ? pathSegments.sublist(2).join('/').replaceAll('lib/', '') + '/'
         : annotation.read('path').stringValue;
 
     final classname = name[0].toUpperCase() + name.substring(1) + 'File';

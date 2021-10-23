@@ -21,13 +21,13 @@ final Widget load = HelloWorld();
 
 @Func(
   name: 'main',
-  path: 'folder',
+  path: '/folder/',
   execute: false,
   create: true,
 )
 final Widget main_widget = Comment('main file');
 
-@Pck(name: 'namespace', main: 'main', load: 'load')
+@Pck(name: 'namespace', main: 'folder/main', load: 'load')
 final List<File> myPack = [LoadFile, MainFile];
 
 @Prj(

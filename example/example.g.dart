@@ -35,12 +35,12 @@ class HelloName extends Widget {
 // **************************************************************************
 
 final File LoadFile = File(
-  'objd/example/load',
+  'load',
   child: load,
 );
 
 final File MainFile = File(
-  'foldermain',
+  '/folder/main',
   child: main_widget,
   execute: false,
   create: true,
