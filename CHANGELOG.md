@@ -1,3 +1,7 @@
+## 0.0.4
+
+- updated to Dart 3 and correspoding build dependencies
+
 ## 0.0.3
 
 - updated dependencies and example

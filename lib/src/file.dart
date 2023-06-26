@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/type.dart';
 import 'package:build/src/builder/build_step.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -19,7 +20,7 @@ class FileGenerator extends GeneratorForAnnotation<Func> {
     // if (!e.type.isDynamic && !e.type.toString().contains('Widget')) {
     //   throw '@Func values must be of type Widget';
     // }
-    final useFor = e.type.isDynamic || e.type.toString().contains('List<');
+    final useFor = e.type is DynamicType || e.type.toString().contains('List<');
 
     final gen = StringBuffer();
 

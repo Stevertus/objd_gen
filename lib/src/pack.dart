@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/type.dart';
 import 'package:build/src/builder/build_step.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -16,7 +17,7 @@ class PackGenerator extends GeneratorForAnnotation<Pck> {
       throw '@Pck can only be applied to List<File> variables';
     }
 
-    if (!e.type.isDynamic && !e.type.toString().contains('List<')) {
+    if (e.type is! DynamicType && !e.type.toString().contains('List<')) {
       throw '@Pck values must be of type List<File>';
     }
 
